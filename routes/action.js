@@ -4,7 +4,7 @@ const ConfigModel = require('../model/Config');
 const crypto = require('crypto');
 const mem = require('../util/mem');
 
-router.prefix('/action')
+router.prefix('/mp/action')
 
 router.get('/dth/:index_id', getOpenid, async (ctx, next) => {
 	ctx.redirect('/action_dth/index.html');
