@@ -14,8 +14,9 @@ router.get('/dth/:index_id', getOpenid, async (ctx, next) => {
 
 router.get('/dth_res',async(ctx,next)=>{
 	let openid = ctx.cookies.get('ctx_openid');
+	let index_id = ctx.cookies.get('index_id');
 	if(!openid){
-		return ctx.redirect('/action/dth');
+		return ctx.redirect('/action/dth/'+index_id);
 	}
 	let name = decodeURIComponent(ctx.query.name);
 	let index = name_calculate(name,11)
@@ -35,24 +36,32 @@ router.get('/dth_res',async(ctx,next)=>{
 	'xiaomi1.png'
 	]
 	let str_bg = __dirname+'/../util/image/'+bgs[index]
-
 	console.log('image 参数------------',name,user.headimgurl,str_bg)
+	let head = await image(name,user.headimgurl,str_bg)
+	console.log('-----路径----')
+	console.log('/action_dth/result.html?img='+encodeURIComponent(head))
+	if(head){
+		console.log(head)
+		return ctx.redirect('/action_dth/result.html?img='+encodeURIComponent(head))
+	}else{
+		return ctx.redirect('/action/dth/'+index_id);
+	}
+	
 
-	imageUtil.getUserImg(name,user.headimgurl,str_bg,function(head){
+	
+})
+
+function image(name,headimgurl,str_bg){
+	return new Promise((resolve,reject)=>{
+		imageUtil.getUserImg(name,headimgurl,str_bg,function(head){
 		if(head){
-			console.log('-----路径----')
-			console.log('/action_dth/result.html?img='+encodeURIComponent(head))
-
-			ctx.redirect('/action_dth/result.html?img='+encodeURIComponent(head))
-			//next()
+			resolve(head)
 		}else{
-			console.log('------没有img-----')
-			let index_id = ctx.cookies.get('index_id');
-			ctx.redirect('/action/dth/'+index_id);
-			//next()
+			resolve('')
 		}
 	})
-})
+	});
+}
 
 async function getOpenid(ctx, next){
 	let index_id = ctx.params.index_id;
