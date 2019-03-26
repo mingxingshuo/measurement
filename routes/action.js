@@ -39,6 +39,7 @@ router.get('/dth_res',async(ctx,next)=>{
 	console.log('image 参数------------',name,user.headimgurl,str_bg)
 	let head = await image(name,user.headimgurl,str_bg)
 	console.log('-----路径----')
+	head = head.split('.')[0]
 	console.log('/action_dth/result.html?img='+encodeURIComponent(head))
 	if(head){
 		console.log(head)
