@@ -46,6 +46,8 @@ router.get('/dth_res',async(ctx,next)=>{
 	console.log('/action_dth/result.html?img='+encodeURIComponent(head))
 	if(head){
 		console.log(head)
+		ctx.cookies.set("index_id",'');
+		ctx.cookies.set("ctx_openid",'');
 		return ctx.redirect('/action_dth/result.html?img='+encodeURIComponent(head))
 	}else{
 		return ctx.redirect('/action/dth/'+index_id);
@@ -71,6 +73,10 @@ async function getOpenid(ctx, next){
 	let index_id = ctx.params.index_id;
 	ctx.cookies.set("index_id",index_id);
 	let openid = ctx.cookies.get('ctx_openid');
+	if(!openid){
+		openid = ctx.query.uuu;
+		ctx.cookies.set("ctx_openid",openid);
+	}
 	let code = ctx.query.code;
 	let config = await getConfig(index_id);
 	if(!openid){
