@@ -4,6 +4,7 @@ const ConfigModel = require('../model/Config');
 const UserconfModel = require('../model/Userconf');
 const crypto = require('crypto');
 const mem = require('../util/mem');
+const imageUtil = require('../util/image');
 
 router.prefix('/mp/action')
 
@@ -34,10 +35,18 @@ router.get('/dth_res',async(ctx,next)=>{
 	'xiaomi1.png'
 	]
 	let str_bg = __dirname+'/../util/image/'+bgs[index]
-	ctx.body ={
-		user:user,
-		bg: str_bg
-	}
+
+	console.log('image 参数------------',name,user.headimgurl,str_bg)
+
+	imageUtil.getUserImg(name,headimgurl,str_bg,function(head){
+		if(head){
+			ctx.redirect('/action/result?img='encodeURIComponent(head))
+			//next()
+		}else{
+			ctx.redirect('/action/dth');
+			//next()
+		}
+	})
 })
 
 async function getOpenid(ctx, next){

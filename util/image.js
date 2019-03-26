@@ -26,7 +26,7 @@ function result_img(head, name, backimgurl, callback) {
             if (error) {
                 console.log(error);
             }
-            callback(head);
+            callback('/action_img/result_image/'+head);
           })
 
         //console.log(mosaic_cmd, '--------------------mosaic_cmd')
