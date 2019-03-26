@@ -6,7 +6,7 @@ const mem = require('../util/mem');
 
 router.prefix('/action')
 
-router.get('/dth', getOpenid, async (ctx, next) => {
+router.get('/dth/:index_id', getOpenid, async (ctx, next) => {
 	ctx.redirect('/action_dth/index.html');
 })
 
