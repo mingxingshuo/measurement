@@ -38,7 +38,7 @@ router.get('/dth_res',async(ctx,next)=>{
 
 	console.log('image 参数------------',name,user.headimgurl,str_bg)
 
-	imageUtil.getUserImg(name,headimgurl,str_bg,function(head){
+	imageUtil.getUserImg(name,user.headimgurl,str_bg,function(head){
 		if(head){
 			ctx.redirect('/action/result?img='+encodeURIComponent(head))
 			//next()
