@@ -14,9 +14,6 @@ function result_img(head, name, backimgurl, callback) {
         // var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + backimgurl + '" "-page" "+87+203" "' + __dirname + '/user_image/smallhead_'
         //     + head +'"'+ ' "-font" "'+__dirname+'/china.TTF" "-draw" ' + name + '"100,503" "-mosaic" "' + __dirname + '/../public/action_img/result_image/' + head + '"'
         
-        console.log('--------name----------')
-        console.log(name)
-        
         gm().in('-page','+0+0').in(backimgurl)
           .in('-page','+87+203').in(__dirname + '/user_image/smallhead_'+ head)
           .font(__dirname+'/FZYouSJW_509R.TTF').fontSize(60).fill('#090807').drawText(140,590,name)
