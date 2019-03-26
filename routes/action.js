@@ -42,11 +42,13 @@ router.get('/dth_res',async(ctx,next)=>{
 		if(head){
 			console.log('-----路径----')
 			console.log('/action_dth/result.html?img='+encodeURIComponent(head))
-			
+
 			ctx.redirect('/action_dth/result.html?img='+encodeURIComponent(head))
 			//next()
 		}else{
-			ctx.redirect('/action/dth');
+			console.log('------没有img-----')
+			let index_id = ctx.cookies.get('index_id');
+			ctx.redirect('/action/dth/'+index_id);
 			//next()
 		}
 	})
@@ -54,10 +56,10 @@ router.get('/dth_res',async(ctx,next)=>{
 
 async function getOpenid(ctx, next){
 	let index_id = ctx.params.index_id;
+	ctx.cookies.set("index_id",index_id);
 	let openid = ctx.cookies.get('ctx_openid');
 	let code = ctx.query.code;
 	let config = await getConfig(index_id);
-	console.log(config)
 	if(!openid){
 		/*req.session.openid = 'o3qBK0RXH4BlFLEIksKOJEzx08og';
 		return callback(req,res);*/
