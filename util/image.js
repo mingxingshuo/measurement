@@ -2,8 +2,7 @@ const fs = require('fs')
 const request = require('request');
 const exec = require('child_process').exec;
 const gm = require('gm').subClass({imageMagick: true});
-
-//process.env.PATH += ":/usr/local/GraphicsMagick-1.3.28/bin";
+process.env.PATH += ":/usr/local/GraphicsMagick-1.3.28/bin";
 
 function downloadHead(uri, filename, callback) {
     var stream = fs.createWriteStream(filename);
