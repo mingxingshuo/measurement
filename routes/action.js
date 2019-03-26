@@ -3,6 +3,7 @@ const rp = require('request-promise-any');
 const ConfigModel = require('../model/Config');
 const crypto = require('crypto');
 
+router.prefix('/action')
 
 router.get('/dth', getOpenid, async (ctx, next) => {
 	ctx.redirect('/action_dth/index.html');
