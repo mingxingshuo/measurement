@@ -1,6 +1,7 @@
 const router = require('koa-router')();
 const rp = require('request-promise');
 const ConfigModel = require('../model/Config');
+const UserconfModel = require('../model/Userconf');
 const crypto = require('crypto');
 const mem = require('../util/mem');
 
@@ -17,9 +18,25 @@ router.get('/dth_res',async(ctx,next)=>{
 	}
 	let name = decodeURIComponent(ctx.query.name);
 	let index = name_calculate(name,11)
+
+	let user = await UserconfModel.findOne({openid:openid},{headimgurl:1,nickname:1,openid:1});
+	let bgs = [
+	'dasao1.png',
+	'ersao1.png',
+	'liuqing1.png',
+	'mengzong1.png',
+	'shitiandong1.png',
+	'sumingcheng1.png',
+	'sumingyu1.png',
+	'sumingzhe1.png',
+	'sumu1.png',
+	'xiaomengzong1.png',
+	'xiaomi1.png'
+	]
+	let str_bg = __dirname+'/../util/image/'+bgs[index]
 	ctx.body ={
-		openid:openid,
-		index: index
+		user:user,
+		bg: str_bg
 	}
 })
 
