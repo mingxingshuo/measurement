@@ -2,7 +2,9 @@ const fs = require('fs')
 const request = require('request');
 const exec = require('child_process').exec;
 const gm = require('gm').subClass({imageMagick: true});
-process.env.PATH += ":/usr/local/GraphicsMagick-1.3.28/bin";
+const PNG = require('pngjs').PNG;
+
+//process.env.PATH += ":/usr/local/GraphicsMagick-1.3.28/bin";
 
 function downloadHead(uri, filename, callback) {
     var stream = fs.createWriteStream(filename);
@@ -27,12 +29,12 @@ function result_img(head, name, backimgurl, callback) {
 }
 
 function getUserImg(name, headimgurl, backimgurl, callback) {
-    var head = Date.now() + '' + parseInt(Math.random() * 10000) + '.jpg';
+    var head = Date.now() + '' + parseInt(Math.random() * 10000) + '.png';
     var head_path = __dirname + '/user_image/head_' + head;
     if (headimgurl) {
         downloadHead(headimgurl, head_path, function (err1, res) {
-            if (err) {
-                console.log(err, '------------------err')
+            if (err1) {
+                console.log(err1, '------------------err1')
             }
             let origin = __dirname + '/user_image/head_' + head;
             let output = __dirname + '/user_image/smallhead_' + head;
@@ -46,12 +48,12 @@ function getUserImg(name, headimgurl, backimgurl, callback) {
                         .drawCircle(size / 2, size / 2, size / 2, 0)
                         .write(output, function (err) {
                             console.log(err || 'done');
-                            result_img(head, name, backimgurl)
+                            result_img(head, name, backimgurl,callback)
                         });
                 });
         })
     } else {
-        result_img('', name, backimgurl)
+        result_img('', name, backimgurl,callback)
     }
 }
 
