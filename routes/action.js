@@ -74,6 +74,8 @@ async function getOpenid(ctx, next){
 	ctx.cookies.set("index_id",index_id);
 	let openid = ctx.cookies.get('ctx_openid');
 	if(!openid){
+		console.log('-----ctx.query.uuu-----')
+		console.log(ctx.query.uuu);
 		openid = ctx.query.uuu;
 		ctx.cookies.set("ctx_openid",openid);
 	}
