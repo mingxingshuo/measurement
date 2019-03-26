@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const rp = require('request-promise');
 const ConfigModel = require('../model/Config');
 const crypto = require('crypto');
+const mem = require('../util/mem');
 
 router.prefix('/action')
 
