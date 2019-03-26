@@ -1,52 +1,46 @@
 const fs = require('fs')
-const gm = require('gm');
 const request = require('request');
 const exec = require('child_process').exec;
 process.env.PATH += ":/usr/local/GraphicsMagick-1.3.28/bin";
 
-function share_img(ticket, qr_name, callback) {
-    var resize_cmd = 'gm "convert" "' + __dirname + '/qr_image/' + qr_name + '" "-resize" "164x" "' + __dirname + '/qr_image/small_' + qr_name + '"';
-    exec(resize_cmd, function (error, stdout, stderr) {
-        if (error) {
-            console.log(error);
-        }
-        var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + __dirname + '/qr_image/tmp_bg_nickname.png" "-page" "+294+1119" "' + __dirname + '/qr_image/small_' + qr_name + '" "-mosaic" "' + __dirname + '/../public/qr_image/' + qr_name + '"'
+function downloadHead(uri, filename, callback) {
+    var stream = fs.createWriteStream(filename);
+    request(uri).pipe(stream).on('close', callback);
+}
+
+function result_img(head, name, backimgurl, callback) {
+    if (name && head) {
+        var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + __dirname + '/user_image/' + '" "-page" "+163+1042" "' + __dirname + '/user_image/smallhead_'
+            + head + '" "-mosaic" "' + __dirname + '/user_image/' + head + '"'
+        console.log(mosaic_cmd, '--------------------mosaic_cmd')
+
         exec(mosaic_cmd, function (error, stdout, stderr) {
             if (error) {
                 console.log(error);
             }
-            memcached.set('qr_' + ticket, qr_name, 7 * 24 * 60 * 60, function (err) {
-            });
-            callback(qr_name);
+            callback(head);
         });
-    });
+    } else {
+        callback('');
+    }
 }
 
-function result_img(qr_name, nickname, headimgurl, callback) {
-    var resize_cmd = 'gm "convert" "' + __dirname + '/user_image/' + qr_name + '" "-resize" "200x" "' + __dirname + '/user_image/small_' + qr_name + '"';
-        var resize_head = 'gm "convert" "' + __dirname + '/user_image/head_' + qr_name + '" "-resize" "167x" "' + __dirname + '/user_image/smallhead_' + qr_name + '"';
-
-        exec(resize_cmd, function (error, stdout, stderr) {
+function getUserImg(name, headimgurl, backimgurl, callback) {
+    var head = Date.now() + '' + parseInt(Math.random() * 10000) + '.jpg';
+    var head_path = __dirname + '/user_image/head_' + head;
+    if (headimgurl) {
+        downloadHead(headimgurl, head_path, function (err1, res) {
+            if (err) {
+                console.log(err, '------------------err')
+            }
+            var resize_head = 'gm "convert" "' + __dirname + '/user_image/head_' + head + '" "-resize" "167x" "' + __dirname + '/user_image/smallhead_' + head + '"';
             exec(resize_head, function (errorhead, stdouthead, stderrhead) {
-                if (error) {
-                    console.log(error);
-                }
-                if (errorhead) {
-                    console.log(errorhead);
-                }
-                var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + __dirname + '/user_image/tmp_bg_nickname.png" ' +
-                    '"-page" "+369+1046" "' + __dirname + '/user_image/small_' + qr_name + '" "-page" "+163+1042" "' + __dirname + '/user_image/smallhead_'
-                    + qr_name + '" "-mosaic" "' + __dirname + '/user_image/' + qr_name + '"'
-                console.log(mosaic_cmd,'--------------------mosaic_cmd')
-
-                exec(mosaic_cmd, function (error, stdout, stderr) {
-                    if (error) {
-                        console.log(error);
-                    }
-                    callback(qr_name);
-                });
+                result_img(head, name, backimgurl)
             });
-        });
+        })
+    } else {
+        result_img('', name, backimgurl)
+    }
 }
 
-module.exports.result_img = result_img
+module.exports.getUserImg = getUserImg
