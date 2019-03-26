@@ -51,6 +51,7 @@
 <script>
   $(function () {
     let src = location.search.split("img=")[1];
+    src = decodeURIComponent(src)
     $(".container img").attr({src: src})
   })
 </script>
