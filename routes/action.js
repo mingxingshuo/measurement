@@ -22,6 +22,9 @@ router.get('/dth_res',async(ctx,next)=>{
 	let index = name_calculate(name,11)
 
 	let user = await UserconfModel.findOne({openid:openid},{headimgurl:1,nickname:1,openid:1});
+	if(!user){
+		return ctx.redirect('/action_dth/sub.html');
+	}
 	let bgs = [
 	'dasao1.png',
 	'ersao1.png',
