@@ -40,6 +40,9 @@ router.get('/dth_res',async(ctx,next)=>{
 
 	imageUtil.getUserImg(name,user.headimgurl,str_bg,function(head){
 		if(head){
+			console.log('-----路径----')
+			console.log('/action_dth/result.html?img='+encodeURIComponent(head))
+			
 			ctx.redirect('/action_dth/result.html?img='+encodeURIComponent(head))
 			//next()
 		}else{
