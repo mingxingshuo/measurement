@@ -20,7 +20,7 @@ function result_img(head, name, backimgurl, callback) {
         
         gm().in('-page','+0+0').in(backimgurl)
           .in('-page','+87+203').in(__dirname + '/user_image/smallhead_'+ head)
-          .font(__dirname+'/china.TTF').fontSize(55).fill('#090807').drawText(100,503,name)
+          .font(__dirname+'/FZYouSJW_509R.TTF').fontSize(60).fill('#090807').drawText(140,590,name)
           .mosaic()
           .write(__dirname + '/../public/action_img/result_image/' + head,function(error){
             if (error) {
