@@ -14,7 +14,7 @@ function downloadHead(uri, filename, callback) {
 function result_img(head, name, backimgurl, callback) {
     if (name && head) {
         var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + backimgurl + '" "-page" "+87+203" "' + __dirname + '/user_image/smallhead_'
-            + head + '" "-font" "' + name + '" "-mosaic" "' + __dirname + '/result_image/' + head + '"'
+            + head + '" "-font" "./china.TTF" " -draw"' + name + ' 100,503" "-mosaic" "' + __dirname + '/../public/action_img/result_image/' + head + '"'
         console.log(mosaic_cmd, '--------------------mosaic_cmd')
 
         exec(mosaic_cmd, function (error, stdout, stderr) {
