@@ -33,7 +33,7 @@ async function getOpenid(ctx, next){
 		if(!code){
 			console.log('------go to get code-------')
 			let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+config
-			.appid+"&redirect_uri="+encodeURIComponent('http://'+req.hostname+req.originalUrl)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+			.appid+"&redirect_uri="+encodeURIComponent('http://'+ctx.hostname+ctx.originalUrl)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
 			ctx.redirect(url);
 		}else{
 			let api_url="https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config
