@@ -20,10 +20,12 @@
     "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
     "koa-views": "^5.2.1",
+    "memcached": "^2.2.2",
     "mongoose": "^5.4.20",
     "pug": "^2.0.0-rc.1",
     "q": "^1.5.1",
     "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "request-promise-any": "^1.0.7"
   },
   "devDependencies": {
