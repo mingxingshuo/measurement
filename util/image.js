@@ -2,7 +2,6 @@ const fs = require('fs')
 const request = require('request');
 const exec = require('child_process').exec;
 const gm = require('gm').subClass({imageMagick: true});
-const PNG = require('pngjs').PNG;
 
 //process.env.PATH += ":/usr/local/GraphicsMagick-1.3.28/bin";
 
@@ -13,16 +12,30 @@ function downloadHead(uri, filename, callback) {
 
 function result_img(head, name, backimgurl, callback) {
     if (name && head) {
-        var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + backimgurl + '" "-page" "+87+203" "' + __dirname + '/user_image/smallhead_'
-            + head + '" "-font" "./china.TTF" " -draw"' + name + ' 100,503" "-mosaic" "' + __dirname + '/../public/action_img/result_image/' + head + '"'
-        console.log(mosaic_cmd, '--------------------mosaic_cmd')
-
-        exec(mosaic_cmd, function (error, stdout, stderr) {
+        // var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + backimgurl + '" "-page" "+87+203" "' + __dirname + '/user_image/smallhead_'
+        //     + head +'"'+ ' "-font" "'+__dirname+'/china.TTF" "-draw" ' + name + '"100,503" "-mosaic" "' + __dirname + '/../public/action_img/result_image/' + head + '"'
+        
+        console.log('--------name----------')
+        console.log(name)
+        
+        gm().in('-page','+0+0').in(backimgurl)
+          .in('-page','+87+203').in(__dirname + '/user_image/smallhead_'+ head)
+          .font(__dirname+'/china.TTF').fontSize(55).fill('#090807').drawText(100,503,name)
+          .mosaic()
+          .write(__dirname + '/../public/action_img/result_image/' + head,function(error){
             if (error) {
                 console.log(error);
             }
             callback(head);
-        });
+          })
+
+        //console.log(mosaic_cmd, '--------------------mosaic_cmd')
+        /*exec(mosaic_cmd, function (error, stdout, stderr) {
+            if (error) {
+                console.log(error);
+            }
+            callback(head);
+        });*/
     } else {
         callback('');
     }

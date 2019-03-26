@@ -11,6 +11,7 @@
   "dependencies": {
     "debug": "^2.6.3",
     "ejs": "^2.6.1",
+    "gm": "^1.23.1",
     "koa": "^2.2.0",
     "koa-bodyparser": "^3.2.0",
     "koa-convert": "^1.2.0",
@@ -23,10 +24,8 @@
     "memcached": "^2.2.2",
     "mongoose": "^5.4.20",
     "pug": "^2.0.0-rc.1",
-    "q": "^1.5.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "request-promise-any": "^1.0.7"
+    "request-promise": "^4.2.4"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"
