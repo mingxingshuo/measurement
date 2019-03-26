@@ -27,7 +27,8 @@ async function getOpenid(ctx, next){
 	let index_id = ctx.params.index_id;
 	let openid = ctx.cookies.get('ctx_openid');
 	let code = ctx.query.code;
-	let config = getConfig(index_id);
+	let config = await getConfig(index_id);
+	console.log(config)
 	if(!openid){
 		/*req.session.openid = 'o3qBK0RXH4BlFLEIksKOJEzx08og';
 		return callback(req,res);*/
