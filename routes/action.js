@@ -40,7 +40,7 @@ router.get('/dth_res',async(ctx,next)=>{
 
 	imageUtil.getUserImg(name,user.headimgurl,str_bg,function(head){
 		if(head){
-			ctx.redirect('/action/result?img='+encodeURIComponent(head))
+			ctx.redirect('/action/result.html?img='+encodeURIComponent(head))
 			//next()
 		}else{
 			ctx.redirect('/action/dth');
