@@ -10,7 +10,7 @@ function downloadHead(uri, filename, callback) {
 
 function result_img(head, name, backimgurl, callback) {
     if (name && head) {
-        var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + __dirname + '/user_image/' + '" "-page" "+163+1042" "' + __dirname + '/user_image/smallhead_'
+        var mosaic_cmd = 'gm "convert" "-page" "+0+0" "' + __dirname + '/user_image/' + backimgurl + '" "-page" "+163+1042" "' + __dirname + '/user_image/smallhead_'
             + head + '" "-mosaic" "' + __dirname + '/user_image/' + head + '"'
         console.log(mosaic_cmd, '--------------------mosaic_cmd')
 
