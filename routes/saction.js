@@ -50,7 +50,7 @@ router.get('/dth_res',async(ctx,next)=>{
 	'xiaomi1.png'
 	]
 	let str_bg = __dirname+'/../util/bg/dth/'+bgs[index];
-	console.log('image 参数------------',name,user.headimgurl,str_bg)
+	console.log('image 参数------------',name,user.headimgurl,str_bg,index_id+'.jpg')
 	let head = await image(name,user.headimgurl,str_bg,index_id+'.jpg')
 	console.log('-----路径----')
 	head = head.split('.')[0]
