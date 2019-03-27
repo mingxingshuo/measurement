@@ -87,6 +87,9 @@ async function getOpenid(ctx, next){
 	let code = ctx.query.code;
 	let config = await getConfig(index_id);
 	if(!openid){
+		if(index_id=='26'){
+			return ctx.redirect('/mp/action_dth/sub.html?code='+index_id);
+		}
 		/*req.session.openid = 'o3qBK0RXH4BlFLEIksKOJEzx08og';
 		return callback(req,res);*/
 		if(!code){
