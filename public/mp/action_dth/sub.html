@@ -44,8 +44,15 @@
 </head>
 <body>
   <div class="container">
-    <img src="/action_img/sub.jpeg" alt="">
+    <img src="" alt="">
   </div>
 </body>
 <script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function () {
+    let code = location.search.split("code=")[1];
+    let src= '/action_img/sub/'+code+'.jpg'
+    $(".container img").attr({src: src})
+  })
+</script>
 </html>

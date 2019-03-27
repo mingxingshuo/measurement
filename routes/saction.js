@@ -4,9 +4,9 @@ const ConfigModel = require('../model/Config');
 const UserconfModel = require('../model/Userconf');
 const crypto = require('crypto');
 const mem = require('../util/mem');
-const imageUtil = require('../util/image');
+const imageUtil = require('../util/simage');
 
-router.prefix('/mp/action')
+router.prefix('/mp/saction')
 
 router.get('/dth/:index_id', getOpenid, async (ctx, next) => {
 	ctx.redirect('/mp/action_dth/index.html');
@@ -16,7 +16,7 @@ router.get('/dth_res',async(ctx,next)=>{
 	let index_id = ctx.cookies.get('index_id');
 	let openid = ctx.cookies.get('ctx_openid_'+index_id);
 	if(!openid){
-		return ctx.redirect('/action/dth/'+index_id);
+		return ctx.redirect('/saction/dth/'+index_id);
 	}
 	let name = decodeURIComponent(ctx.query.name);
 
@@ -49,16 +49,16 @@ router.get('/dth_res',async(ctx,next)=>{
 	'xiaomengzong1.png',
 	'xiaomi1.png'
 	]
-	let str_bg = __dirname+'/../util/image/'+bgs[index]
+	let str_bg = __dirname+'/../util/bg/dth/'+bgs[index];
 	console.log('image 参数------------',name,user.headimgurl,str_bg)
-	let head = await image(name,user.headimgurl,str_bg)
+	let head = await image(name,user.headimgurl,str_bg,index_id+'.jpg')
 	console.log('-----路径----')
 	head = head.split('.')[0]
 	console.log('/mp/action_dth/result.html?img='+encodeURIComponent(head))
 	if(head){
 		return ctx.redirect('/mp/action_dth/result.html?img='+encodeURIComponent(head))
 	}else{
-		return ctx.redirect('/action/dth/'+index_id);
+		return ctx.redirect('/saction/dth/'+index_id);
 	}
 })
 
