@@ -20,12 +20,12 @@ router.get('/dth_res',async(ctx,next)=>{
 	}
 	let name = decodeURIComponent(ctx.query.name);
 
-	let index = ctx.cookies.get('ctx_index_'+index_id+ctx.query.name)
+	let index = ctx.cookies.get('ctx_index_'+index_id+encodeURIComponent(name))
 	console.log('-----index-------',index)
 
 	if(index === undefined || index==='' ){
 		index = parseInt(Math.random()*11)+'';
-		let key = 'ctx_index_'+index_id+ctx.query.name;
+		let key = 'ctx_index_'+index_id+encodeURIComponent(name);
 		console.log('key---------------',key)
 		ctx.cookies.set(key,index)
 	}
