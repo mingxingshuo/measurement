@@ -62,9 +62,9 @@ router.get('/dth_res',async(ctx,next)=>{
 	}
 })
 
-function image(name,headimgurl,str_bg){
+function image(name,headimgurl,str_bg,code){
 	return new Promise((resolve,reject)=>{
-		imageUtil.getUserImg(name,headimgurl,str_bg,function(head){
+		imageUtil.getUserImg(name,headimgurl,str_bg,code,function(head){
 		if(head){
 			resolve(head)
 		}else{
