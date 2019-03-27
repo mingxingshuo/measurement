@@ -13,13 +13,22 @@ router.get('/dth/:index_id', getOpenid, async (ctx, next) => {
 })
 
 router.get('/dth_res',async(ctx,next)=>{
-	let openid = ctx.cookies.get('ctx_openid');
 	let index_id = ctx.cookies.get('index_id');
+	let openid = ctx.cookies.get('ctx_openid_'+index_id);
 	if(!openid){
 		return ctx.redirect('/action/dth/'+index_id);
 	}
 	let name = decodeURIComponent(ctx.query.name);
-	let index = name_calculate(name,11)
+
+	let index = ctx.cookies.get('ctx_index_'+index_id+name)
+	console.log('-----index-------',index)
+
+	if(index === undefined || index==='' ){
+		index = parseInt(Math.random()*11)
+		ctx.cookies.set('ctx_index_'+index_id+name,index)
+	}
+	index = parseInt(index)
+	console.log('-----parseInt index-------',index)
 
 	let user = await UserconfModel.findOne({openid:openid},{headimgurl:1,nickname:1,openid:1});
 	if(!user){
@@ -45,9 +54,6 @@ router.get('/dth_res',async(ctx,next)=>{
 	head = head.split('.')[0]
 	console.log('/action_dth/result.html?img='+encodeURIComponent(head))
 	if(head){
-		console.log(head)
-		ctx.cookies.set("index_id",'');
-		ctx.cookies.set("ctx_openid",'');
 		return ctx.redirect('/action_dth/result.html?img='+encodeURIComponent(head))
 	}else{
 		return ctx.redirect('/action/dth/'+index_id);
@@ -72,12 +78,12 @@ function image(name,headimgurl,str_bg){
 async function getOpenid(ctx, next){
 	let index_id = ctx.params.index_id;
 	ctx.cookies.set("index_id",index_id);
-	let openid = ctx.cookies.get('ctx_openid');
+	let openid = ctx.cookies.get('ctx_openid_'+index_id);
 	if(!openid){
 		console.log('-----ctx.query.uuu-----')
 		console.log(ctx.query.uuu);
 		openid = ctx.query.uuu;
-		ctx.cookies.set("ctx_openid",openid);
+		ctx.cookies.set('ctx_openid_'+index_id,openid);
 	}
 	let code = ctx.query.code;
 	let config = await getConfig(index_id);
@@ -97,7 +103,7 @@ async function getOpenid(ctx, next){
 				uri:api_url,
 				json:true
 			});
-			ctx.cookies.set("ctx_openid",body.openid);
+			ctx.cookies.set('ctx_openid_'+index_id,body.openid);
 			console.log('-------get  openid---------')
 			console.log(body.openid)
 			await next()		
