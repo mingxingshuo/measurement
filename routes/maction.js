@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const mem = require('../util/mem');
 const imageUtil = require('../util/simage');
 
-router.prefix('/mp/action')
+router.prefix('/mp/maction')
 
 router.get('/dth/:index_id', getOpenid, async (ctx, next) => {
 	ctx.redirect('/mp/action_dth/index.html');
