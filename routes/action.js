@@ -60,9 +60,6 @@ router.get('/dth_res',async(ctx,next)=>{
 	}else{
 		return ctx.redirect('/action/dth/'+index_id);
 	}
-	
-
-	
 })
 
 function image(name,headimgurl,str_bg){
@@ -94,6 +91,7 @@ async function getOpenid(ctx, next){
 		return callback(req,res);*/
 		if(!code){
 			console.log('------go to get code-------')
+			console.log('http://'+ctx.hostname+ctx.originalUrl)
 			let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+config
 			.appid+"&redirect_uri="+encodeURIComponent('http://'+ctx.hostname+ctx.originalUrl)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
 			ctx.redirect(url);
