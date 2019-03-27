@@ -9,7 +9,7 @@ const imageUtil = require('../util/simage');
 router.prefix('/mp/maction')
 
 router.get('/dth/:index_id', getOpenid, async (ctx, next) => {
-	ctx.redirect('/mp/action_dth/index.html');
+	ctx.redirect('/mp/maction_dth/index.html');
 })
 
 router.get('/dth_res',async(ctx,next)=>{
@@ -34,7 +34,7 @@ router.get('/dth_res',async(ctx,next)=>{
 
 	let user = await mUserconfModel.findOne({openid:openid},{headimgurl:1,nickname:1,openid:1});
 	if(!user){
-		return ctx.redirect('/mp/action_dth/sub.html?code='+index_id);
+		return ctx.redirect('/mp/maction_dth/sub.html?code='+index_id);
 	}
 	let bgs = [
 	'dasao1.png',
@@ -54,9 +54,9 @@ router.get('/dth_res',async(ctx,next)=>{
 	let head = await image(name,user.headimgurl,str_bg,index_id+'.jpg')
 	console.log('-----路径----')
 	head = head.split('.')[0]
-	console.log('/mp/action_dth/result.html?img='+encodeURIComponent(head))
+	console.log('/mp/maction_dth/result.html?img='+encodeURIComponent(head))
 	if(head){
-		return ctx.redirect('/mp/action_dth/result.html?img='+encodeURIComponent(head))
+		return ctx.redirect('/mp/maction_dth/result.html?img='+encodeURIComponent(head))
 	}else{
 		return ctx.redirect('/maction/dth/'+index_id);
 	}
