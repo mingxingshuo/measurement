@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>测测你像《都挺好》里的谁？</title>
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = "orientationchange" in window ? "orientationchange" : "resize",
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 640) {
+                        docEl.style.fontSize = "100px";
+                    } else {
+                        docEl.style.fontSize = 100 * (clientWidth / 750) + "px";
+                    }
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener("DOMContentLoaded", recalc, false);
+        })(document, window);
+    </script>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="container">
+    <div class="first_page">
+        <div class="first_page_title">
+            测测你像《都挺好》里的谁？
+        </div>
+        <div class="first_page_content">
+            <img src="/img/banner1.png" alt="">
+            <input type="text" placeholder="请输入名字"/>
+            <a href="javascript:;">开始测试</a>
+        </div>
+    </div>
+</div>
+<div style="display: none">
+    <script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1276814283&web_id=1276814283"></script>
+</div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".first_page_content a").click(function () {
+            let val = $(".first_page_content input").val()
+            if(val === '') {
+                textTip('请输入姓名')
+            }else {
+                location.href = '/mp/maction/dth_res?name='+encodeURIComponent(val)
+            }
+        })
+    })
+    function textTip(str, t, callBack) {
+        t = t || 2000;
+        var dom = document.createElement("p");
+        dom.setAttribute('class', 'text-tip');
+        document.body.appendChild(dom);
+        var mytip = document.querySelector('.text-tip')
+
+        mytip.style.display="block";
+        mytip.innerHTML = str;
+        var tipHeight = mytip.offsetHeight;
+
+        //文字两行或两行以上
+        if((tipHeight - 20)/18>1){
+            mytip.style.width = "55%";
+        }
+        setTimeout(function () {
+            mytip.style.display="none";
+            mytip.parentNode.removeChild(mytip);
+            if (callBack) {callBack();}
+        }, t);
+    }
+</script>
+</html>
