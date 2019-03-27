@@ -24,9 +24,10 @@ router.get('/dth_res',async(ctx,next)=>{
 	console.log('-----index-------',index)
 
 	if(index === undefined || index==='' ){
-		index = parseInt(Math.random()*11);
-		console.log(name)
-		ctx.cookies.set('ctx_index_'+index_id+name,index)
+		index = parseInt(Math.random()*11)+'';
+		let key = 'ctx_index_'+index_id+name;
+		console.log('key---------------',key)
+		ctx.cookies.set(key,index)
 	}
 	index = parseInt(index)
 	console.log('-----parseInt index-------',index)
