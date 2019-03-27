@@ -49,11 +49,11 @@ router.get('/dth_res',async(ctx,next)=>{
 	'xiaomengzong1.png',
 	'xiaomi1.png'
 	]
-	let str_bg = __dirname+'/../util/bg/dth/'+bgs[index]
-	console.log('image 参数------------',name,user.headimgurl,str_bg,index_id+'.jpg')
-	let head = await image(name,user.headimgurl,str_bg,index_id+'.jpg')
-	console.log('-----路径----')
-	head = head.split('.')[0]
+	let str_bg = __dirname+'/../util/bg/dth/'+bgs[index];
+    console.log('image 参数------------',name,user.headimgurl,str_bg,index_id+'.jpg')
+    let head = await image(name,user.headimgurl,str_bg,index_id+'.jpg')
+    console.log('-----路径----')
+    head = head.split('.')[0]
 	console.log('/mp/maction_dth/result.html?img='+encodeURIComponent(head))
 	if(head){
 		return ctx.redirect('/mp/maction_dth/result.html?img='+encodeURIComponent(head))
@@ -63,15 +63,15 @@ router.get('/dth_res',async(ctx,next)=>{
 })
 
 function image(name,headimgurl,str_bg,code){
-	return new Promise((resolve,reject)=>{
-		imageUtil.getUserImg(name,headimgurl,str_bg,code,function(head){
-		if(head){
-			resolve(head)
-		}else{
-			resolve('')
-		}
-	})
-	});
+    return new Promise((resolve,reject)=>{
+        imageUtil.getUserImg(name,headimgurl,str_bg,code,function(head){
+        if(head){
+            resolve(head)
+        }else{
+            resolve('')
+        }
+    })
+    });
 }
 
 async function getOpenid(ctx, next){
