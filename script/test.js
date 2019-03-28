@@ -1,4 +1,4 @@
-let image = require('../util/image1')
+const image = require('../util/image1')
 
 function a() {
     let param = {
