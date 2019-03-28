@@ -3,3 +3,4 @@
 /.idea
 .DS_Store
 /util/user_image/*
+/public/action_img/result_image/*
