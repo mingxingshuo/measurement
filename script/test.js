@@ -1,4 +1,4 @@
-const image = require('../util/image1')
+const imageUtil = require('../util/image1')
 
 function a() {
     let param = {
@@ -29,7 +29,7 @@ function a() {
             y: 590
         }
     }
-    image(param, function (data) {
+    imageUtil.getUserImg(param, function (data) {
         console.log(data, '----------------------data')
     })
 }
