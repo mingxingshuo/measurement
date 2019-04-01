@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var connect_url = require('../conf/proj.json').mongodb;
 var db = mongoose.createConnection(connect_url);
 
-var UserconfSchema = new Schema({
+var MuserconfSchema = new Schema({
     openid: String,
     code: Number,
     nickname: String,
@@ -33,6 +33,6 @@ var UserconfSchema = new Schema({
 });
 
 
-var UserconfModel = db.model('Userconf', UserconfSchema);
+var MuserconfModel = db.model('Muserconf', MuserconfSchema);
 
-module.exports = UserconfModel;
+module.exports = MuserconfModel;

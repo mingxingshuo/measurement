@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 const rp = require('request-promise');
 const ConfigModel = require('../model/Config');
-const mUserconfModel = require('../model/mUserconf');
+const MuserconfModel = require('../model/Muserconf');
 const crypto = require('crypto');
 const mem = require('../util/mem');
 const imageUtil = require('../util/simage');
@@ -32,7 +32,7 @@ router.get('/dth_res',async(ctx,next)=>{
 	index = parseInt(index)
 	console.log('-----parseInt index-------',index)
 
-	let user = await mUserconfModel.findOne({openid:openid},{headimgurl:1,nickname:1,openid:1});
+	let user = await MuserconfModel.findOne({openid:openid},{headimgurl:1,nickname:1,openid:1});
 	if(!user){
 		return ctx.redirect('/mp/maction_dth/sub.html?code='+index_id);
 	}
@@ -109,7 +109,7 @@ async function getOpenid(ctx, next){
                 uri: info_url,
                 json: true
             });
-            await mUserconfModel.findOneAndUpdate({openid: body.openid}, {
+            await MuserconfModel.findOneAndUpdate({openid: body.openid}, {
                 openid: body.openid,
                 nickname: info.nickname,
                 headimgurl: info.headimgurl,
@@ -119,7 +119,7 @@ async function getOpenid(ctx, next){
 			ctx.cookies.set('ctx_openid_'+index_id,body.openid);
 			console.log('-------get  openid---------')
 			console.log(body.openid)
-			await next()		
+			await next()
 		}
 	}else{
 		await next()
